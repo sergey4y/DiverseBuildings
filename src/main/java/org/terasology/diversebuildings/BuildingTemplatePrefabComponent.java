@@ -22,6 +22,7 @@ import java.util.List;
 /**
  * Created by Sergey Yakimovich on 24.04.2014.
  */
-public class BuildingTemplateComponent implements Component {
-    public List<String> levels;
+public class BuildingTemplatePrefabComponent implements Component {
+    public String levels;
+    public String blocksMapping;
 }
