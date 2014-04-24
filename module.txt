@@ -1,0 +1,6 @@
+{
+    "id" : "DiverseBuildings",
+    "version" : "0.1.0",
+    "displayName" : "Diverse Buildings",
+    "description" : "This module strives to provide easy interface for buildings creation."
+}
