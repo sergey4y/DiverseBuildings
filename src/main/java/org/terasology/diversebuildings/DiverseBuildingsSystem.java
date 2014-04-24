@@ -87,7 +87,7 @@ public class DiverseBuildingsSystem extends BaseComponentSystem {
         return new Vector3i(x, y, z);
     }
 
-    private void setBlocksOnWorldProvider(BuildingTemplate building, Vector3i position){
+    public void setBlocksOnWorldProvider(BuildingTemplate building, Vector3i position){
         for(Vector3i relativePos : building.getBuildingPositions()){
             Vector3i blockPosition = new Vector3i(relativePos.getX() + position.getX(),
                     relativePos.getY() + position.getY(), relativePos.getZ() + position.getZ());
