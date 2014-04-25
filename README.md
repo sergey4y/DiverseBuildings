@@ -1,7 +1,7 @@
 DiverseBuildings
 ================
 
-Terasology module for building creation.
+Terasology module for buildings creation.
 
 Templates for buildings can be described as prefab assets.
 
