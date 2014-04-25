@@ -84,4 +84,22 @@ public class BuildingTemplate {
     public Set<Vector3i> getBuildingPositions() {
         return blocksPositionsData.keySet();
     }
+
+    public void rotate90Deg(){
+        Map<Vector3i, String> newBlocksPositionsData = new HashMap<Vector3i, String>();
+        int maxHorSize = 0;
+        for(Vector3i position : blocksPositionsData.keySet()){
+            if(position.getX() > maxHorSize){
+                maxHorSize = position.getX();
+            }
+            if(position.getZ() > maxHorSize){
+                maxHorSize = position.getZ();
+            }
+        }
+        for(Vector3i position : blocksPositionsData.keySet()){
+            Vector3i newPosition = new Vector3i(maxHorSize - 1 - position.getZ(), position.getY(), position.getX());
+            newBlocksPositionsData.put(newPosition, blocksPositionsData.get(position));
+        }
+        blocksPositionsData = newBlocksPositionsData;
+    }
 }
