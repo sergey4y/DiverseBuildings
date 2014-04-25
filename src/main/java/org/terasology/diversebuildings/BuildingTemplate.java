@@ -33,6 +33,10 @@ public class BuildingTemplate {
 
     }
 
+    public BuildingTemplate(BuildingTemplate toCopy){
+        blocksPositionsData.putAll(toCopy.blocksPositionsData);
+    }
+
     public BuildingTemplate(BuildingTemplatePrefabComponent prefab){
         String[] blocksMappingStringParts = prefab.blocksMapping.split(",");
         Map<String, String> blocksMapping = new HashMap<String, String>();
@@ -97,7 +101,7 @@ public class BuildingTemplate {
             }
         }
         for(Vector3i position : blocksPositionsData.keySet()){
-            Vector3i newPosition = new Vector3i(maxHorSize - 1 - position.getZ(), position.getY(), position.getX());
+            Vector3i newPosition = new Vector3i(maxHorSize - position.getZ(), position.getY(), position.getX());
             newBlocksPositionsData.put(newPosition, blocksPositionsData.get(position));
         }
         blocksPositionsData = newBlocksPositionsData;

@@ -20,6 +20,7 @@ import org.terasology.entitySystem.prefab.PrefabManager;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.console.Command;
+import org.terasology.logic.console.CommandParam;
 import org.terasology.logic.console.Message;
 import org.terasology.logic.players.LocalPlayer;
 import org.terasology.math.Vector3i;
@@ -67,8 +68,23 @@ public class DiverseBuildingsSystem extends BaseComponentSystem {
     }
 
     @Command(shortDescription = "Build nearby a building from a template.")
-    public String buildNearby(String templateName){
-        BuildingTemplate template = templates.get(templateName);
+    public String buildNearby(@CommandParam(value = "TemplateName") String templateName, @CommandParam(value = "RotationInDegrees") String rotation){
+        BuildingTemplate template = new BuildingTemplate(templates.get(templateName));
+        if(rotation != null) {
+            if (rotation.trim().equalsIgnoreCase("0")) {
+            } else if (rotation.trim().equalsIgnoreCase("90")) {
+                template.rotate90Deg();
+            } else if (rotation.trim().equalsIgnoreCase("180")) {
+                template.rotate90Deg();
+                template.rotate90Deg();
+            } else if (rotation.trim().equalsIgnoreCase("270")) {
+                template.rotate90Deg();
+                template.rotate90Deg();
+                template.rotate90Deg();
+            } else {
+                return "Can't rotate on " + rotation + " degrees, must be 90, 180 or 270";
+            }
+        }
         if(template == null){
             return "Template " + templateName + " not found.";
         }
