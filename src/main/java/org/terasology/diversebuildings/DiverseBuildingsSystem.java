@@ -69,7 +69,11 @@ public class DiverseBuildingsSystem extends BaseComponentSystem {
 
     @Command(shortDescription = "Build nearby a building from a template.")
     public String buildNearby(@CommandParam(value = "TemplateName") String templateName, @CommandParam(value = "RotationInDegrees") String rotation){
-        BuildingTemplate template = new BuildingTemplate(templates.get(templateName));
+        BuildingTemplate baseTemplate = templates.get(templateName);
+        if(baseTemplate == null){
+            return "Template " + templateName + " not found.";
+        }
+        BuildingTemplate template = new BuildingTemplate(baseTemplate);
         if(rotation != null) {
             if (rotation.trim().equalsIgnoreCase("0")) {
             } else if (rotation.trim().equalsIgnoreCase("90")) {
@@ -82,12 +86,10 @@ public class DiverseBuildingsSystem extends BaseComponentSystem {
                 template.rotate90Deg();
                 template.rotate90Deg();
             } else {
-                return "Can't rotate on " + rotation + " degrees, must be 90, 180 or 270";
+                return "Can't rotate on " + rotation + " degrees, must be 0, 90, 180 or 270";
             }
         }
-        if(template == null){
-            return "Template " + templateName + " not found.";
-        }
+
         Vector3i position = getRoundedPlayerPosition();
         position.add(0, 0, 2);
         setBlocksOnWorldProvider(template, position);

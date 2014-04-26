@@ -42,7 +42,7 @@ public class BuildingTemplate {
         Map<String, String> blocksMapping = new HashMap<String, String>();
         for(String part : blocksMappingStringParts){
             String[] subParts = part.split("-");
-            blocksMapping.put(subParts[0], subParts[1]);
+            blocksMapping.put(subParts[0].trim(), subParts[1].trim());
         }
         String[] levelsStrings = prefab.levels.split("\\.");
         for(String levelString : levelsStrings){
