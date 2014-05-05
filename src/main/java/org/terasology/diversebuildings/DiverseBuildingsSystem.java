@@ -15,6 +15,8 @@
  */
 package org.terasology.diversebuildings;
 
+import org.terasology.diversebuildings.grammarsystem.ProductionSystem;
+import org.terasology.diversebuildings.grammarsystem.StartSymbol;
 import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.prefab.PrefabManager;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
@@ -57,7 +59,7 @@ public class DiverseBuildingsSystem extends BaseComponentSystem {
         }
     }
 
-    @Command(shortDescription = "List available buildings.")
+    @Command(shortDescription = "List all available buildings.")
     public String listAvailableBuildings(){
         StringBuilder result = new StringBuilder();
         for(String name : templates.keySet()){
@@ -94,6 +96,25 @@ public class DiverseBuildingsSystem extends BaseComponentSystem {
         position.add(0, 0, 2);
         setBlocksOnWorldProvider(template, position);
         return "Building from a template " + templateName + " finished.";
+    }
+
+    @Command(shortDescription = "Generate a random building nearby.")
+    public String generateRandomBuilding(){
+        StartSymbol startSymbol = new StartSymbol();
+        startSymbol.setxSize(10);
+        startSymbol.setySize(7);
+        startSymbol.setzSize(8);
+        ProductionSystem ps = new ProductionSystem();
+        BuildingTemplate template = ps.mergeBuildingTemplateSymbols(ps.produce(startSymbol));
+        Vector3i position = getRoundedPlayerPosition();
+        position.add(0, -1, 2);
+        setBlocksOnWorldProvider(template, position);
+        return "Producing finished.";
+    }
+
+    @Command(shortDescription = "Sample command.")
+    public String sampleCommand(){
+        return "ok";
     }
 
     private Vector3i getRoundedPlayerPosition(){

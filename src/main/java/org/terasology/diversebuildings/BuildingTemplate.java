@@ -17,6 +17,7 @@ package org.terasology.diversebuildings;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.terasology.diversebuildings.grammarsystem.Symbol;
 import org.terasology.math.Vector3i;
 import org.terasology.world.block.Block;
 
@@ -28,13 +29,17 @@ import java.util.Set;
 /**
  * Created by Sergey Yakimovich on 24.04.2014.
  */
-public class BuildingTemplate {
+public class BuildingTemplate extends Symbol{
     public BuildingTemplate(){
 
     }
 
     public BuildingTemplate(BuildingTemplate toCopy){
         blocksPositionsData.putAll(toCopy.blocksPositionsData);
+    }
+
+    public void merge(BuildingTemplate template){
+        blocksPositionsData.putAll(template.blocksPositionsData);
     }
 
     public BuildingTemplate(BuildingTemplatePrefabComponent prefab){

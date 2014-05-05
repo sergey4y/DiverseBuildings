@@ -1,0 +1,8 @@
+params:
+xSize: xSize > 4, xSize < 8
+
+house ::- split(axis, z, 1, 4, r) {floor, storey, roof}
+
+floor ::- set()
+
+
