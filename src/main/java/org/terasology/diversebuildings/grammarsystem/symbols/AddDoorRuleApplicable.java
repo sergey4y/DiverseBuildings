@@ -13,37 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.diversebuildings.grammarsystem;
+package org.terasology.diversebuildings.grammarsystem.symbols;
 
 /**
- * Created by Sergey Yakimovich on 30.04.2014.
+ * Created by Sergey Yakimovich on 06.05.2014.
  */
-public class StartSymbol extends Symbol{
-    private int xSize;
-    private int ySize;
-    private int zSize;
-
-    public int getxSize() {
-        return xSize;
-    }
-
-    public void setxSize(int xSize) {
-        this.xSize = xSize;
-    }
-
-    public int getySize() {
-        return ySize;
-    }
-
-    public void setySize(int ySize) {
-        this.ySize = ySize;
-    }
-
-    public int getzSize() {
-        return zSize;
-    }
-
-    public void setzSize(int zSize) {
-        this.zSize = zSize;
-    }
+public interface AddDoorRuleApplicable {
+    public void addDoor();
 }

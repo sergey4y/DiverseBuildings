@@ -13,14 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.diversebuildings.grammarsystem;
+package org.terasology.diversebuildings.grammarsystem.rules;
 
+import org.terasology.diversebuildings.grammarsystem.symbols.Symbol;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Sergey Yakimovich on 30.04.2014.
  */
 public abstract class Rule {
-    public abstract boolean canBeApplied(Symbol symbol);
+    private Set<Class> targetSymbols = new HashSet<Class>();
+
+    public void addTargetSymbol(Class symbolClass){
+        targetSymbols.add(symbolClass);
+    }
+
+    public boolean isAmongTargetSymbols(Symbol symbol){
+        if(targetSymbols.contains(symbol.getClass())){
+            return true;
+        }
+        return false;
+    }
+
     public abstract List<Symbol> apply(Symbol symbol);
 }

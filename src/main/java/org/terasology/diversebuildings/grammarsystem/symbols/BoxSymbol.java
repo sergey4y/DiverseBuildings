@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.diversebuildings.grammarsystem;
+package org.terasology.diversebuildings.grammarsystem.symbols;
 
 import org.terasology.diversebuildings.BuildingTemplate;
 import org.terasology.math.Vector3i;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
  * Created by Sergey Yakimovich on 02.05.2014.
  */
-public class BoxSymbol extends Symbol implements SetRuleApplicable{
+public class BoxSymbol extends Symbol implements SetRuleApplicable, AddDoorRuleApplicable {
     private int xStartPosition;
     private int xSize;
     private int yStartPosition;
@@ -115,5 +113,18 @@ public class BoxSymbol extends Symbol implements SetRuleApplicable{
             template.removeBlockAtPosition(removedBlock);
         }
         return template;
+    }
+
+    @Override
+    public void addDoor() {
+        if(zSize >= 3){
+            if(ySize >= 3) {
+                this.removedBlocks.add(new Vector3i(0, 1, 2));
+
+            }
+            if(ySize >= 4){
+                this.removedBlocks.add(new Vector3i(0, 2, 2));
+            }
+        }
     }
 }

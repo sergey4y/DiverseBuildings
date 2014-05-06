@@ -16,7 +16,7 @@
 package org.terasology.diversebuildings;
 
 import org.terasology.diversebuildings.grammarsystem.ProductionSystem;
-import org.terasology.diversebuildings.grammarsystem.StartSymbol;
+import org.terasology.diversebuildings.grammarsystem.symbols.StartSymbol;
 import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.prefab.PrefabManager;
 import org.terasology.entitySystem.systems.BaseComponentSystem;

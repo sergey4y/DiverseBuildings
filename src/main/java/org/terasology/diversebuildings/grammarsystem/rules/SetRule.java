@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.diversebuildings.grammarsystem;
+package org.terasology.diversebuildings.grammarsystem.rules;
 
-import org.terasology.diversebuildings.BuildingTemplate;
-import org.terasology.math.Vector3i;
+import org.terasology.diversebuildings.grammarsystem.symbols.SetRuleApplicable;
+import org.terasology.diversebuildings.grammarsystem.symbols.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,6 @@ import java.util.List;
  */
 public class SetRule extends Rule{
     private String blockType = "Core:Brick";
-    private Class applyTo;
 
     public String getBlockType() {
         return blockType;
@@ -36,29 +35,12 @@ public class SetRule extends Rule{
         this.blockType = blockType;
     }
 
-    public Class getApplyTo() {
-        return applyTo;
-    }
-
-    public void setApplyTo(Class applyTo) {
-        this.applyTo = applyTo;
-    }
-
-    @Override
-    public boolean canBeApplied(Symbol symbol) {
-        if(applyTo.isInstance(symbol)){
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public List<Symbol> apply(Symbol symbol) {
         List<Symbol> result = new ArrayList<Symbol>();
         if(symbol instanceof SetRuleApplicable){
             SetRuleApplicable toApply = (SetRuleApplicable) symbol;
             result.add(toApply.applySetRule(blockType));
-
         }
         return result;
     }

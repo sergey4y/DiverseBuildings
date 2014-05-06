@@ -13,7 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.diversebuildings.grammarsystem;
+package org.terasology.diversebuildings.grammarsystem.rules;
+
+import org.terasology.diversebuildings.grammarsystem.symbols.BoxSymbol;
+import org.terasology.diversebuildings.grammarsystem.symbols.OneLevelRoofSymbol;
+import org.terasology.diversebuildings.grammarsystem.symbols.StartSymbol;
+import org.terasology.diversebuildings.grammarsystem.symbols.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +35,6 @@ public class SplitToRoofAndBoxRule extends Rule{
 
     public int getBoxHeight() {
         return boxHeight;
-    }
-
-    @Override
-    public boolean canBeApplied(Symbol symbol){
-        if(symbol instanceof StartSymbol){
-            return true;
-        }
-        return false;
     }
 
     @Override

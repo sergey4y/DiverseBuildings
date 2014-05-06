@@ -16,6 +16,12 @@
 package org.terasology.diversebuildings.grammarsystem;
 
 import org.terasology.diversebuildings.BuildingTemplate;
+import org.terasology.diversebuildings.grammarsystem.rules.Rule;
+import org.terasology.diversebuildings.grammarsystem.rules.SetRule;
+import org.terasology.diversebuildings.grammarsystem.rules.SplitToRoofAndBoxRule;
+import org.terasology.diversebuildings.grammarsystem.symbols.BoxSymbol;
+import org.terasology.diversebuildings.grammarsystem.symbols.OneLevelRoofSymbol;
+import org.terasology.diversebuildings.grammarsystem.symbols.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +34,11 @@ public class ProductionSystem {
     public ProductionSystem(){
         rules.add(new SplitToRoofAndBoxRule());
         SetRule boxSetRule = new SetRule();
-        boxSetRule.setApplyTo(BoxSymbol.class);
+        boxSetRule.addTargetSymbol(BoxSymbol.class);
         boxSetRule.setBlockType("Core:Brick");
         rules.add(boxSetRule);
         SetRule roofSetRule = new SetRule();
-        roofSetRule.setApplyTo(OneLevelRoofSymbol.class);
+        roofSetRule.addTargetSymbol(OneLevelRoofSymbol.class);
         roofSetRule.setBlockType("Core:Plank");
         rules.add(roofSetRule);
 
@@ -48,7 +54,7 @@ public class ProductionSystem {
             for(Symbol curSymbol : symbols){
                 boolean ruleApplied = false;
                 for(Rule rule : rules){
-                    if(rule.canBeApplied(curSymbol)){
+                    if(rule.isAmongTargetSymbols(curSymbol)){
                         newSymbols.addAll(rule.apply(curSymbol));
                         rulesAppliedOnLoop++;
                         ruleApplied = true;

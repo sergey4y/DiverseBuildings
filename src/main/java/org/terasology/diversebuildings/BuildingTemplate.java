@@ -17,9 +17,8 @@ package org.terasology.diversebuildings;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.terasology.diversebuildings.grammarsystem.Symbol;
+import org.terasology.diversebuildings.grammarsystem.symbols.Symbol;
 import org.terasology.math.Vector3i;
-import org.terasology.world.block.Block;
 
 import java.util.HashMap;
 import java.util.HashSet;

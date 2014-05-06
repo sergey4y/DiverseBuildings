@@ -13,13 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.diversebuildings.grammarsystem;
+package org.terasology.diversebuildings.grammarsystem.rules;
+
+import org.terasology.diversebuildings.grammarsystem.symbols.AddDoorRuleApplicable;
+import org.terasology.diversebuildings.grammarsystem.symbols.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Sergey Yakimovich on 30.04.2014.
+ * Created by Sergey Yakimovich on 05.05.2014.
  */
-public class Symbol {
+public class AddDoorRule extends Rule {
+
+    @Override
+    public List<Symbol> apply(Symbol symbol) {
+        List<Symbol> result = new ArrayList<Symbol>();
+        if(symbol instanceof AddDoorRuleApplicable){
+            AddDoorRuleApplicable toApply = (AddDoorRuleApplicable) symbol;
+            toApply.addDoor();
+            result.add(symbol);
+        }
+        return result;
+    }
 }
