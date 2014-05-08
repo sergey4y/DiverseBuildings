@@ -129,14 +129,6 @@ public class BoxSymbol extends Symbol implements SetRuleApplicable, AddDoorRuleA
     @Override
     public BoxSymbolWithDoor addDoor() {
         BoxSymbolWithDoor result = new BoxSymbolWithDoor(this);
-        if(result.getzSize() >= 3){
-            if(result.getySize() >= 3) {
-                result.removeBlock(new Vector3i(0, 1, 2));
-            }
-            if(result.getySize() >= 4){
-                result.removeBlock(new Vector3i(0, 2, 2));
-            }
-        }
         return result;
     }
 }

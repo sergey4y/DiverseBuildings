@@ -19,9 +19,9 @@ import org.terasology.diversebuildings.BuildingTemplate;
 import org.terasology.math.Vector3i;
 
 /**
- * Created by Sergey Yakimovich on 02.05.2014.
+ * Created by Sergey Yakimovich on 08.05.2014.
  */
-public class OneLevelRoofSymbol extends Symbol implements SetRuleApplicable {
+public class GableRoofSymbol extends Symbol implements SetRuleApplicable {
     private int yLevel;
     private int xStartPosition;
     private int xSize;
@@ -69,11 +69,13 @@ public class OneLevelRoofSymbol extends Symbol implements SetRuleApplicable {
     }
 
     @Override
-    public BuildingTemplate applySetRule(String blockType){
+    public BuildingTemplate applySetRule(String blockType) {
         BuildingTemplate template = new BuildingTemplate();
-        for (int x = getxStartPosition(); x < getxSize(); x++) {
-            for (int z = getzStartPosition(); z < getzSize(); z++) {
-                template.setBlockAtPosition(new Vector3i(x, getyLevel(), z), blockType);
+        for(int i = 0; i < 1 + (double)getzSize()/2.0; i++){
+            for (int x = getxStartPosition() + i; x < getxSize() - i; x++) {
+                for (int z = getzStartPosition(); z < getzSize(); z++) {
+                    template.setBlockAtPosition(new Vector3i(x, getyLevel() + i, z), blockType);
+                }
             }
         }
         return template;

@@ -15,13 +15,11 @@
  */
 package org.terasology.diversebuildings.grammarsystem.rules;
 
-import org.terasology.diversebuildings.grammarsystem.symbols.BoxSymbol;
-import org.terasology.diversebuildings.grammarsystem.symbols.OneLevelRoofSymbol;
-import org.terasology.diversebuildings.grammarsystem.symbols.StartSymbol;
-import org.terasology.diversebuildings.grammarsystem.symbols.Symbol;
+import org.terasology.diversebuildings.grammarsystem.symbols.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Sergey Yakimovich on 02.05.2014.
@@ -49,13 +47,25 @@ public class SplitToRoofAndBoxRule extends Rule{
         boxSymbol.setyStartPosition(0);
         boxSymbol.setySize(boxHeight);
         result.add(boxSymbol);
-        OneLevelRoofSymbol roof = new OneLevelRoofSymbol();
-        roof.setxStartPosition(boxSymbol.getxStartPosition());
-        roof.setxSize(boxSymbol.getxSize());
-        roof.setzStartPosition(boxSymbol.getzStartPosition());
-        roof.setzSize(boxSymbol.getzSize());
-        roof.setyLevel(boxHeight);
-        result.add(roof);
+        Random random = new Random();
+        if(random.nextDouble() > 0.5){
+            FlatRoofSymbol roof = new FlatRoofSymbol();
+            roof.setxStartPosition(boxSymbol.getxStartPosition());
+            roof.setxSize(boxSymbol.getxSize());
+            roof.setzStartPosition(boxSymbol.getzStartPosition());
+            roof.setzSize(boxSymbol.getzSize());
+            roof.setyLevel(boxHeight);
+            result.add(roof);
+        } else {
+            GableRoofSymbol roof = new GableRoofSymbol();
+            roof.setxStartPosition(boxSymbol.getxStartPosition());
+            roof.setxSize(boxSymbol.getxSize());
+            roof.setzStartPosition(boxSymbol.getzStartPosition());
+            roof.setzSize(boxSymbol.getzSize());
+            roof.setyLevel(boxHeight);
+            result.add(roof);
+        }
+
         return result;
     }
 }

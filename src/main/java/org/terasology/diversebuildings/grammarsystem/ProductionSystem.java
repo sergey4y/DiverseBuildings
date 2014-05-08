@@ -47,7 +47,8 @@ public class ProductionSystem {
         boxSetRule.setBlockType("Core:Brick");
         rules.add(boxSetRule);
         SetRule roofSetRule = new SetRule();
-        roofSetRule.addTargetSymbol(OneLevelRoofSymbol.class);
+        roofSetRule.addTargetSymbol(FlatRoofSymbol.class);
+        roofSetRule.addTargetSymbol(GableRoofSymbol.class);
         roofSetRule.setBlockType("Core:Plank");
         rules.add(roofSetRule);
 

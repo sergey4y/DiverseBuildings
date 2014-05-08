@@ -15,12 +15,26 @@
  */
 package org.terasology.diversebuildings.grammarsystem.symbols;
 
+import org.terasology.math.Vector3i;
+
+import java.util.Random;
+
 /**
  * Created by Sergey Yakimovich on 08.05.2014.
  */
 public class BoxSymbolWithDoor extends BoxSymbol {
     public BoxSymbolWithDoor(int xStartPosition, int xSize, int yStartPosition, int ySize, int zStartPosition, int zSize){
         super(xStartPosition, xSize, yStartPosition, ySize, zStartPosition, zSize);
+        if(getxSize() >= 3){
+            Random r = new Random();
+            int xPosition = 1 + r.nextInt(getxSize()-1);
+            if(getySize() >= 3) {
+                removeBlock(new Vector3i(xPosition, 1, 0));
+            }
+            if(getySize() >= 4){
+                removeBlock(new Vector3i(xPosition, 2, 0));
+            }
+        }
     }
 
     public BoxSymbolWithDoor(BoxSymbol other){
