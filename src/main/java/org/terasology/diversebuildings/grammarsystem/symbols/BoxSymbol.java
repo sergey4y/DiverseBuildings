@@ -33,6 +33,17 @@ public class BoxSymbol extends Symbol implements SetRuleApplicable, AddDoorRuleA
     private int zSize;
     private Set<Vector3i> removedBlocks = new HashSet<Vector3i>();
 
+    public BoxSymbol(){}
+
+    public BoxSymbol(int xStartPosition, int xSize, int yStartPosition, int ySize, int zStartPosition, int zSize){
+        this.xStartPosition = xStartPosition;
+        this.xSize = xSize;
+        this.yStartPosition = yStartPosition;
+        this.ySize = ySize;
+        this.zStartPosition = zStartPosition;
+        this.zSize = zSize;
+    }
+
     public void removeBlock(Vector3i position){
         removedBlocks.add(position);
     }
@@ -116,15 +127,16 @@ public class BoxSymbol extends Symbol implements SetRuleApplicable, AddDoorRuleA
     }
 
     @Override
-    public void addDoor() {
-        if(zSize >= 3){
-            if(ySize >= 3) {
-                this.removedBlocks.add(new Vector3i(0, 1, 2));
-
+    public BoxSymbolWithDoor addDoor() {
+        BoxSymbolWithDoor result = new BoxSymbolWithDoor(this);
+        if(result.getzSize() >= 3){
+            if(result.getySize() >= 3) {
+                result.removeBlock(new Vector3i(0, 1, 2));
             }
-            if(ySize >= 4){
-                this.removedBlocks.add(new Vector3i(0, 2, 2));
+            if(result.getySize() >= 4){
+                result.removeBlock(new Vector3i(0, 2, 2));
             }
         }
+        return result;
     }
 }

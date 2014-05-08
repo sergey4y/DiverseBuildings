@@ -31,8 +31,7 @@ public class AddDoorRule extends Rule {
         List<Symbol> result = new ArrayList<Symbol>();
         if(symbol instanceof AddDoorRuleApplicable){
             AddDoorRuleApplicable toApply = (AddDoorRuleApplicable) symbol;
-            toApply.addDoor();
-            result.add(symbol);
+            result.add(toApply.addDoor());
         }
         return result;
     }

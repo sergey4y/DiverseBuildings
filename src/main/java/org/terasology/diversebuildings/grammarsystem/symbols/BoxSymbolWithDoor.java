@@ -16,8 +16,15 @@
 package org.terasology.diversebuildings.grammarsystem.symbols;
 
 /**
- * Created by Sergey Yakimovich on 06.05.2014.
+ * Created by Sergey Yakimovich on 08.05.2014.
  */
-public interface AddDoorRuleApplicable {
-    public BoxSymbolWithDoor addDoor();
+public class BoxSymbolWithDoor extends BoxSymbol {
+    public BoxSymbolWithDoor(int xStartPosition, int xSize, int yStartPosition, int ySize, int zStartPosition, int zSize){
+        super(xStartPosition, xSize, yStartPosition, ySize, zStartPosition, zSize);
+    }
+
+    public BoxSymbolWithDoor(BoxSymbol other){
+        this(other.getxStartPosition(), other.getxSize(), other.getyStartPosition(), other.getySize(),
+                other.getzStartPosition(), other.getzSize());
+    }
 }

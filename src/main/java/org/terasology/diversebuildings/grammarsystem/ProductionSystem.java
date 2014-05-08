@@ -15,13 +15,14 @@
  */
 package org.terasology.diversebuildings.grammarsystem;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.terasology.diversebuildings.BuildingTemplate;
+import org.terasology.diversebuildings.grammarsystem.rules.AddDoorRule;
 import org.terasology.diversebuildings.grammarsystem.rules.Rule;
 import org.terasology.diversebuildings.grammarsystem.rules.SetRule;
 import org.terasology.diversebuildings.grammarsystem.rules.SplitToRoofAndBoxRule;
-import org.terasology.diversebuildings.grammarsystem.symbols.BoxSymbol;
-import org.terasology.diversebuildings.grammarsystem.symbols.OneLevelRoofSymbol;
-import org.terasology.diversebuildings.grammarsystem.symbols.Symbol;
+import org.terasology.diversebuildings.grammarsystem.symbols.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,19 @@ import java.util.List;
  * Created by Sergey Yakimovich on 30.04.2014.
  */
 public class ProductionSystem {
+    private final static Logger logger = LoggerFactory.getLogger(ProductionSystem.class);
+    public static final int PRODUCTION_CYCLES_LIMIT = 100;
+
     private List<Rule> rules = new ArrayList<Rule>();
     public ProductionSystem(){
-        rules.add(new SplitToRoofAndBoxRule());
+        SplitToRoofAndBoxRule splitToRoofAndBoxRule= new SplitToRoofAndBoxRule();
+        splitToRoofAndBoxRule.addTargetSymbol(StartSymbol.class);
+        rules.add(splitToRoofAndBoxRule);
+        AddDoorRule addDoorRule = new AddDoorRule();
+        addDoorRule.addTargetSymbol(BoxSymbol.class);
+        rules.add(addDoorRule);
         SetRule boxSetRule = new SetRule();
-        boxSetRule.addTargetSymbol(BoxSymbol.class);
+        boxSetRule.addTargetSymbol(BoxSymbolWithDoor.class);
         boxSetRule.setBlockType("Core:Brick");
         rules.add(boxSetRule);
         SetRule roofSetRule = new SetRule();
@@ -48,14 +57,19 @@ public class ProductionSystem {
         List<Symbol> symbols = new ArrayList<Symbol>();
         symbols.add(symbol);
         int rulesAppliedOnLoop = -1;
-        while(rulesAppliedOnLoop != 0){
+        int numberOfCycles = 0;
+        while((rulesAppliedOnLoop != 0) && (numberOfCycles <= PRODUCTION_CYCLES_LIMIT)){
+            logger.info(numberOfCycles + " produce cycle");
+            numberOfCycles++;
             rulesAppliedOnLoop = 0;
             List<Symbol> newSymbols = new ArrayList<Symbol>();
             for(Symbol curSymbol : symbols){
                 boolean ruleApplied = false;
                 for(Rule rule : rules){
                     if(rule.isAmongTargetSymbols(curSymbol)){
-                        newSymbols.addAll(rule.apply(curSymbol));
+                        List<Symbol> symbolsToAdd = rule.apply(curSymbol);
+                        newSymbols.addAll(symbolsToAdd);
+                        logger.info(curSymbol + " converted to " + symbolsToAdd);
                         rulesAppliedOnLoop++;
                         ruleApplied = true;
                         break;
@@ -67,6 +81,7 @@ public class ProductionSystem {
             }
             symbols = newSymbols;
         }
+        logger.info("produce finished");
         return symbols;
     }
 
