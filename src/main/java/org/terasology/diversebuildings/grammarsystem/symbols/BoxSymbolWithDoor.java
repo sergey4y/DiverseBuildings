@@ -27,7 +27,7 @@ public class BoxSymbolWithDoor extends BoxSymbol {
         super(xStartPosition, xSize, yStartPosition, ySize, zStartPosition, zSize);
         if(getxSize() >= 3){
             Random r = new Random();
-            int xPosition = 1 + r.nextInt(getxSize()-1);
+            int xPosition = 1 + r.nextInt(getxSize() - 2);
             if(getySize() >= 3) {
                 removeBlock(new Vector3i(xPosition, 1, 0));
             }
