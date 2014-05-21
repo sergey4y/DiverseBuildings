@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.diversebuildings.grammarsystem;
+package org.terasology.diversebuildings.grammarsystem.productionsystems;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,31 +36,18 @@ public class ProductionSystem {
 
     private List<Rule> rules = new ArrayList<Rule>();
     public ProductionSystem(){
-        SplitToRoofAndBoxRule splitToRoofAndBoxRule= new SplitToRoofAndBoxRule();
-        splitToRoofAndBoxRule.addTargetSymbol(StartSymbol.class);
-        rules.add(splitToRoofAndBoxRule);
-        AddDoorRule addDoorRule = new AddDoorRule();
-        addDoorRule.addTargetSymbol(BoxSymbol.class);
-        rules.add(addDoorRule);
-        SetRule boxSetRule = new SetRule();
-        boxSetRule.addTargetSymbol(BoxSymbolWithDoor.class);
-        boxSetRule.setBlockType("Core:Brick");
-        rules.add(boxSetRule);
-        SetRule roofSetRule = new SetRule();
-        roofSetRule.addTargetSymbol(FlatRoofSymbol.class);
-        roofSetRule.addTargetSymbol(GableRoofSymbol.class);
-        roofSetRule.setBlockType("Core:Plank");
-        rules.add(roofSetRule);
-
     }
 
-    public List<Symbol> produce(Symbol symbol){
+    public void addRule(Rule rule){
+        rules.add(rule);
+    }
+
+    public BuildingTemplate produce(Symbol symbol){
         List<Symbol> symbols = new ArrayList<Symbol>();
         symbols.add(symbol);
         int rulesAppliedOnLoop = -1;
         int numberOfCycles = 0;
         while((rulesAppliedOnLoop != 0) && (numberOfCycles <= PRODUCTION_CYCLES_LIMIT)){
-            logger.info(numberOfCycles + " produce cycle");
             numberOfCycles++;
             rulesAppliedOnLoop = 0;
             List<Symbol> newSymbols = new ArrayList<Symbol>();
@@ -68,9 +55,9 @@ public class ProductionSystem {
                 boolean ruleApplied = false;
                 for(Rule rule : rules){
                     if(rule.isAmongTargetSymbols(curSymbol)){
+                        logger.info("using " + rule + " on " + curSymbol);
                         List<Symbol> symbolsToAdd = rule.apply(curSymbol);
                         newSymbols.addAll(symbolsToAdd);
-                        logger.info(curSymbol + " converted to " + symbolsToAdd);
                         rulesAppliedOnLoop++;
                         ruleApplied = true;
                         break;
@@ -83,7 +70,7 @@ public class ProductionSystem {
             symbols = newSymbols;
         }
         logger.info("produce finished");
-        return symbols;
+        return mergeBuildingTemplateSymbols(symbols);
     }
 
     public BuildingTemplate mergeBuildingTemplateSymbols(List<Symbol> symbols){

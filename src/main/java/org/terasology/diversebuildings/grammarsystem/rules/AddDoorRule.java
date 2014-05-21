@@ -16,6 +16,7 @@
 package org.terasology.diversebuildings.grammarsystem.rules;
 
 import org.terasology.diversebuildings.grammarsystem.symbols.AddDoorRuleApplicable;
+import org.terasology.diversebuildings.grammarsystem.symbols.BoxSymbol;
 import org.terasology.diversebuildings.grammarsystem.symbols.Symbol;
 
 import java.util.ArrayList;

@@ -19,9 +19,9 @@ package org.terasology.diversebuildings.grammarsystem.symbols;
  * Created by Sergey Yakimovich on 30.04.2014.
  */
 public class StartSymbol extends Symbol{
-    private int xSize;
-    private int ySize;
-    private int zSize;
+    private int xSize = DEFAULT_X_SIZE;
+    private int ySize = DEFAULT_Y_SIZE;
+    private int zSize = DEFAULT_Z_SIZE;
 
     public int getxSize() {
         return xSize;
@@ -46,4 +46,8 @@ public class StartSymbol extends Symbol{
     public void setzSize(int zSize) {
         this.zSize = zSize;
     }
+
+    public final static int DEFAULT_X_SIZE = 7;
+    public final static int DEFAULT_Y_SIZE = 7;
+    public final static int DEFAULT_Z_SIZE = 7;
 }

@@ -15,7 +15,8 @@
  */
 package org.terasology.diversebuildings;
 
-import org.terasology.diversebuildings.grammarsystem.ProductionSystem;
+import org.terasology.diversebuildings.grammarsystem.productionsystems.ProductionSystem;
+import org.terasology.diversebuildings.grammarsystem.productionsystems.SimpleHomeProductionSystem;
 import org.terasology.diversebuildings.grammarsystem.symbols.StartSymbol;
 import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.prefab.PrefabManager;
@@ -101,15 +102,12 @@ public class DiverseBuildingsSystem extends BaseComponentSystem {
     @Command(shortDescription = "Generate a random building nearby.")
     public String generateRandomBuilding(){
         StartSymbol startSymbol = new StartSymbol();
-        startSymbol.setxSize(10);
-        startSymbol.setySize(7);
-        startSymbol.setzSize(8);
-        ProductionSystem ps = new ProductionSystem();
-        BuildingTemplate template = ps.mergeBuildingTemplateSymbols(ps.produce(startSymbol));
+        ProductionSystem ps = new SimpleHomeProductionSystem();
+        BuildingTemplate template = ps.produce(startSymbol);
         Vector3i position = getRoundedPlayerPosition();
         position.add(0, -1, 2);
         setBlocksOnWorldProvider(template, position);
-        return "Producing finished.";
+        return "Random building generated.";
     }
 
     @Command(shortDescription = "Sample command.")

@@ -26,11 +26,14 @@ import java.util.Set;
  */
 public class BoxSymbol extends Symbol implements SetRuleApplicable, AddDoorRuleApplicable {
     private int xStartPosition;
-    private int xSize;
+    private int xSize = DEFAULT_SIZE;
     private int yStartPosition;
-    private int ySize;
+    private int ySize = DEFAULT_SIZE;
     private int zStartPosition;
-    private int zSize;
+    private int zSize = DEFAULT_SIZE;
+
+    public static final int DEFAULT_SIZE = 7;
+
     private Set<Vector3i> removedBlocks = new HashSet<Vector3i>();
 
     public BoxSymbol(){}
@@ -130,5 +133,10 @@ public class BoxSymbol extends Symbol implements SetRuleApplicable, AddDoorRuleA
     public BoxSymbolWithDoor addDoor() {
         BoxSymbolWithDoor result = new BoxSymbolWithDoor(this);
         return result;
+    }
+
+    @Override
+    public String toString(){
+        return "BoxSymbol [" + getxSize() + ", " + getySize() + ", " + getzSize() + "]";
     }
 }
